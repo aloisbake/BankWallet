@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "MovieApp.Infrastructure": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:59804;http://localhost:59806"
+    }
+  }
+}

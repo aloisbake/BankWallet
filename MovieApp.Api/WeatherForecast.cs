@@ -1,4 +1,4 @@
-namespace BankAccount
+namespace MovieApp.Api
 {
     public class WeatherForecast
     {

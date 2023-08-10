@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.Resource;
+using MovieApp.Infrastructure;
 
-namespace BankAccount
+namespace MovieApp.Api
 {
     public class Program
     {
@@ -12,13 +9,16 @@ namespace BankAccount
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
-
+            builder.Services.AddInfrastructure();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            //services cors
+            builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            {
+                builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            }));
 
             var app = builder.Build();
 
@@ -30,8 +30,7 @@ namespace BankAccount
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthentication();
+            app.UseCors("corsapp");
             app.UseAuthorization();
 
 
